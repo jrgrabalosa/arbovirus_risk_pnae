@@ -1,0 +1,26 @@
+{
+    "id": "049C3821",
+    "path": "~/Documentos/PhD/Data_analysis/PNAE/Code/Aedes_albopictus.R",
+    "project_path": "Code/Aedes_albopictus.R",
+    "type": "r_source",
+    "hash": "2660253234",
+    "contents": "",
+    "dirty": false,
+    "created": 1728664174692.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "894,0",
+        "scrollLine": "883"
+    },
+    "folds": "2|80|325|0|\n",
+    "lastKnownWriteTime": 1728713149,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1728713149610,
+    "read_only": false,
+    "read_only_alternatives": []
+}
