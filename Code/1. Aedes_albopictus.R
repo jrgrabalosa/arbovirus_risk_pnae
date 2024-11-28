@@ -917,24 +917,41 @@ mean_counts <- agg_newdata %>%
 
 agg_newdata <- rbind(agg_newdata, mean_counts %>% mutate(year = "Mean"))
 
-my_palette <- c("red", brewer.pal(n = 4, name = "Dark2"))
+# Define the color palette for the plot
+my_palette <- c("red", brewer.pal(n = 4, name = "Set2"))
 
+# Plot
 temporal_variability_plot <- ggplot(data = agg_newdata, aes(x = week, y = pp, color = year, group = year)) +
-  geom_point(size = 0.3) + 
-  geom_line(size = 0.5, aes(linetype = year)) + 
+  geom_point(size = 0.3) +  # Small points for visibility
+  geom_line(size = 1, aes(linetype = year)) +  # Thicker lines for clarity
   scale_color_manual(values = my_palette, name = "Year", 
                      limits = c("Mean", "2015", "2016", "2017", "2018")) + 
   scale_linetype_manual(values = c("solid", rep("dashed", 4)), name = "Year", 
                         limits = c("Mean", "2015", "2016", "2017", "2018")) +
-  labs(x = "Week", y = "Mosquito counts per trap", color = "Year") +
-  scale_x_continuous(breaks = seq(1, max(agg_newdata$week), by = 5)) +
-  theme(axis.title = element_text(size = 14),  
-        axis.text = element_text(size = 14),   
-        legend.text = element_text(size = 14), 
-        legend.title = element_text(size = 14))
+  labs(x = "Week", y = "Mosquito counts per trap", color = "Year", linetype = "Year") +
+  scale_x_continuous(breaks = seq(1, max(agg_newdata$week), by = 5)) +  # Set breaks for the X-axis
+  theme_minimal(base_size = 14) + 
+  theme(
+    axis.title.x = element_text(size = 16),  
+    axis.title.y = element_text(size = 16),  
+    axis.text.x = element_text(size = 14, color = "black"),  
+    axis.text.y = element_text(size = 14, color = "black"),
+    axis.line = element_line(color = "black", size = 0.5),  # Add black axis lines for better framing
+    panel.grid.major.x = element_line(color = "gray90", size = 0.5),  # Light gray for major vertical grid lines
+    panel.grid.major.y = element_line(color = "gray90", size = 0.5),  # Light gray for major horizontal grid lines
+    panel.grid.minor.x = element_blank(),  # Remove minor vertical grid lines
+    panel.grid.minor.y = element_blank(), # Remove minor horizontal grid lines
+    legend.position = c(0.96, 0.5),  # Position the legend in the top-right corner
+    legend.title = element_text(size = 14),
+    legend.text = element_text(size = 14),
+    legend.key.size = unit(0.7, "cm"),
+    legend.spacing.y = unit(0.2, "cm"),  # Reduce vertical spacing between legend items
+    legend.background = element_rect(fill = "white")  # Set a white background for the legend
+  )
 
+temporal_variability_plot
 filename <- "Plots/Aedes_albopictus/albopictus_temporal_variability.jpg"
-ggsave(filename, dpi = 300, width = 15, height = 6, units = "in", type = "jpg", quality = 100)
+ggsave(filename, dpi = 300, width = 15, height = 7, units = "in", type = "jpg", quality = 100)
 
 rm(mean_counts)
 
@@ -1104,3 +1121,19 @@ albopictus_UTM1x1 <- pred %>%
   summarise(counts = mean(pp))
 
 write_csv(albopictus_UTM1x1, "Prediction/Aedes_albopictus/albopictus_UTM1x1.csv")
+
+# Versió antiga del plot de variabilitat temporal ------------------------------
+temporal_variability_plot <- ggplot(
+  data = agg_newdata, aes(x = week, y = pp, color = year, group = year)) +
+  geom_point(size = 0.3) + 
+  geom_line(size = 0.5, aes(linetype = year)) + 
+  scale_color_manual(values = my_palette, name = "Year", 
+                     limits = c("Mean", "2015", "2016", "2017", "2018")) + 
+  scale_linetype_manual(values = c("solid", rep("dashed", 4)), name = "Year", 
+                        limits = c("Mean", "2015", "2016", "2017", "2018")) +
+  labs(x = "Week", y = "Mosquito counts per trap", color = "Year") +
+  scale_x_continuous(breaks = seq(1, max(agg_newdata$week), by = 5)) +
+  theme(axis.title = element_text(size = 14),  
+        axis.text = element_text(size = 14),   
+        legend.text = element_text(size = 14), 
+        legend.title = element_text(size = 14))

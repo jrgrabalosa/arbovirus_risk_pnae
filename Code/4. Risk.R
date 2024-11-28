@@ -59,7 +59,7 @@ model <- glm(risk ~ urban_area + dry_crops + irrigated_crops + wetlands + rice_f
               data = risk, 
               family = gaussian(link = "identity"))
 
-summary(modelo)
+summary(model)
 
 # Extract coefficients and standard errors
 coefs <- summary(model)$coefficients

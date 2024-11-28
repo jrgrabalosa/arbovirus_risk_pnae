@@ -118,7 +118,8 @@ cell_pv_nrs <- atlas_data_non_reservoir_species %>%
 
 cell_pv <- merge(cell_pv, cell_pv_nrs, by = "utm_1x1")
 
-cell_pv$rs_ratio <- cell_pv$predicted_abundance_rs/cell_pv$predicted_abundance_nrs
+cell_pv$rs_ratio <- (cell_pv$predicted_abundance_rs)/
+  (cell_pv$predicted_abundance_nrs)
 
 # write.csv(cell_pv, "Data/Birds_data/Outputs/birds_UTM1x1.csv")
 rm(atlas_data_non_reservoir_species, atlas_data_reservoir_species, 

@@ -268,6 +268,24 @@ ggsave(filename, dpi = 300, width = 10, height = 6, units = "in", type = "jpg", 
 
 rm(curves_species, species_curves_plot, viremia_experiments_PNAE, filename, calculate_auc)
 
+# # Per calcular el nombre d'experiments i l'interval de confiança
+# viremia_experiments_PNAE <- viremia_experiments_PNAE %>%
+#   group_by(species) %>%
+#   mutate(n_experiments = n_distinct(curve)) %>%
+#   ungroup() 
+# 
+# viremia_summary <- viremia_experiments_PNAE %>%
+#   group_by(species) %>%
+#   mutate(
+#     n_experiments = n_distinct(curve) 
+#   ) %>%
+#   ungroup() %>%
+#   group_by(species, day, n_experiments) %>%
+#   summarise(
+#     mean_titer = mean(titer_interpolated, na.rm = TRUE),
+#     sd_titer = sd(titer_interpolated, na.rm = TRUE)
+#   )
+
 ################################################################################
 # Titer-infectiousness curve
 ################################################################################
